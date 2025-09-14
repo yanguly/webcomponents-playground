@@ -35,13 +35,7 @@ class OldtimerList extends HTMLElement {
     this.favorites = new Set();
     this.query = "";
 
-    this.addEventListener("toggle-favorite", (e) => {
-      const id = e.detail?.id;
-      if (!id) return;
-      if (this.favorites.has(id)) this.favorites.delete(id);
-      else this.favorites.add(id);
-      this.render();
-    });
+    this.addEventListener("toggle-favorite", this._onToggleFavorite.bind(this));
   }
 
   get filteredCars() {
@@ -54,29 +48,59 @@ class OldtimerList extends HTMLElement {
 
   render() {
     const list = this.filteredCars;
-    this._empty.hidden = list.length > 0;
+    this._updateEmptyState(list.length);
+    this._renderGrid(list);
+    this._emitRendered(list.length);
+  }
 
-    const html = list
-      .map((car) => {
-        const fav = this.favorites.has(car.id) ? "favorite" : "";
-        const title = escapeHTML(`${car.model} (${car.year})`);
-        const meta = escapeHTML(car.tagline);
-        return `
-          <oldtimer-card data-id="${escapeAttr(car.id)}" model="${escapeAttr(car.model)}" year="${escapeAttr(String(car.year))}" ${fav}>
-            <span slot="title">${title}</span>
-            <span slot="meta">${meta}</span>
-          </oldtimer-card>
-        `;
-      })
-      .join("");
+  // ===== Private helpers =====
+  _onToggleFavorite(e) {
+    const id = e.detail?.id;
+    if (!id) return;
+    const wasFav = this.favorites.has(id);
+    if (wasFav) this.favorites.delete(id);
+    else this.favorites.add(id);
 
+    const card = this._findCardFromEvent(e);
+    if (card) card.toggleAttribute("favorite", !wasFav);
+
+    this._emitRendered(this.filteredCars.length);
+  }
+
+  _findCardFromEvent(e) {
+    const path = typeof e.composedPath === "function" ? e.composedPath() : [];
+    return path.find(
+      (n) => n && n.nodeType === 1 && n.tagName === "OLDTIMER-CARD",
+    );
+  }
+
+  _renderGrid(list) {
+    const html = list.map((car) => this._cardHTML(car)).join("");
     this._grid.innerHTML = html;
+  }
 
+  _cardHTML(car) {
+    const favAttr = this.favorites.has(car.id) ? "favorite" : "";
+    const title = escapeHTML(`${car.model} (${car.year})`);
+    const meta = escapeHTML(car.tagline);
+    return `
+      <oldtimer-card data-id="${escapeAttr(car.id)}" model="${escapeAttr(car.model)}" year="${escapeAttr(String(car.year))}" ${favAttr}>
+        <span slot="title">${title}</span>
+        <span slot="meta">${meta}</span>
+      </oldtimer-card>
+    `;
+  }
+
+  _updateEmptyState(count) {
+    this._empty.hidden = count > 0;
+  }
+
+  _emitRendered(count) {
     this.dispatchEvent(
       new CustomEvent("list-rendered", {
         bubbles: true,
         composed: true,
-        detail: { count: list.length },
+        detail: { count },
       }),
     );
   }
