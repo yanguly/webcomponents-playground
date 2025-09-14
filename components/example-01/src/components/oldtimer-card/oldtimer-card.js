@@ -12,6 +12,12 @@
  * @fires toggle-favorite - Dispatched when the favorite button is clicked. event.detail = { id: string } (reads data-id attribute)
  */
 
+// Resolve CSS URL at script evaluation time (document.currentScript is available here)
+const OLDTIMER_CARD_CSS = new URL(
+  "./oldtimer-card.css",
+  (document.currentScript && document.currentScript.src) || location.href,
+).href;
+
 class OldtimerCard extends HTMLElement {
   static get observedAttributes() {
     return ["model", "year", "favorite"];
@@ -19,17 +25,15 @@ class OldtimerCard extends HTMLElement {
 
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `
-      <style>
-        :host { display: block; }
-        .card { border: 1px solid var(--border, #e6e8eb); border-radius: 10px; background: var(--card, #fff); padding: 14px 16px; display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; box-shadow: 0 1px 0 rgba(0,0,0,0.03); }
-        .avatar { width: 48px; height: 48px; border-radius: 8px; display: grid; place-items: center; background: var(--accent-weak, #e0fbff); color: var(--accent, #0b7285); font-size: 22px; }
-        .title { font-weight: 700; }
-        .meta { color: var(--muted, #687076); font-size: 13px; }
-        button { font: inherit; border: 1px solid var(--border, #e6e8eb); background: #fff; color: inherit; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
-        button[aria-pressed="true"] { background: var(--accent, #0b7285); color: #fff; border-color: var(--accent, #0b7285); }
-      </style>
+    const root = this.attachShadow({ mode: "open" });
+
+    // Build CSS URL relative to this script file (works with classic scripts)
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = OLDTIMER_CARD_CSS;
+
+    root.append(link);
+    this.shadowRoot.innerHTML += `
       <article class="card" part="card">
         <div class="avatar" aria-hidden="true">🚗</div>
         <div class="content">

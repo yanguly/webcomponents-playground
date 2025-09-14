@@ -10,13 +10,14 @@ Folder structure:
 ## Examples
 
 ### components/example-01 — Mercedes Oldtimers
-- Goal: show a small, interactive app using pure Web Components without build tools. Pure JS.
-- Components:
-  - `oldtimer-card` — one car card with Favorite toggle.
-  - `oldtimer-filter` — text box that emits `filter-change`.
-  - `oldtimer-list` — renders cards, supports filtering and favorites.
-  - `oldtimer-app` — ties everything together, holds demo data.
-- How to run: open `components/example-01/index.html` in your browser.
-- Notes: uses classic `<script>` tags so it works over `file://`. Each component has its own CSS file.
+- Goal: small, interactive app using pure Web Components. No build tools.
+- Structure:
+  - Page: `components/example-01/index.html`, `styles.css`
+  - Components live under `components/example-01/src/components/<name>/`
+    - Each has `*.js` + matching `*.css`
+- How to run: open `components/example-01/index.html` in a browser.
+- Notes:
+  - Classic `<script>` tags keep it working over `file://`.
+  - Components compute CSS URLs relative to their own files, so styles load correctly without a server.
 
 See more details in `components/example-01/README.md`.

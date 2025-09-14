@@ -40,17 +40,23 @@
  * - Defined as a custom element via `customElements.define("oldtimer-app", OldtimerApp)`.
  */
 
+const OLDTIMER_APP_CSS = new URL(
+  "./oldtimer-app.css",
+  (document.currentScript && document.currentScript.src) || location.href,
+).href;
+
 class OldtimerApp extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    const root = this.attachShadow({ mode: "open" });
+
+    // Create link and add it before HTML content
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = OLDTIMER_APP_CSS;
+
+    root.append(link);
     this.shadowRoot.innerHTML = `
-      <style>
-        :host { display: block; }
-        .panel { background: var(--card, #fff); border: 1px solid var(--border, #e6e8eb); border-radius: 12px; padding: 16px; }
-        header { display: grid; gap: 8px; margin-bottom: 12px; }
-        .summary { color: var(--muted, #687076); font-size: 13px; }
-      </style>
       <section class="panel">
         <header>
           <oldtimer-filter></oldtimer-filter>

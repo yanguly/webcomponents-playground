@@ -9,19 +9,22 @@
  * @fires list-rendered {detail:{count:number}}
  * @listens toggle-favorite
  */
+const OLDTIMER_LIST_CSS = new URL(
+  "./oldtimer-list.css",
+  (document.currentScript && document.currentScript.src) || location.href,
+).href;
+
 class OldtimerList extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `
-      <style>
-        :host { display: block; }
-        .grid { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .empty { color: var(--muted, #687076); padding: 24px; text-align: center; }
-        @media (max-width: 640px) {
-          .grid { grid-template-columns: 1fr; }
-        }
-      </style>
+    const root = this.attachShadow({ mode: "open" });
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = OLDTIMER_LIST_CSS;
+    root.append(link);
+
+    this.shadowRoot.innerHTML += `
       <div class="grid" part="grid"></div>
       <div class="empty" hidden>No results. Try a different search.</div>
     `;

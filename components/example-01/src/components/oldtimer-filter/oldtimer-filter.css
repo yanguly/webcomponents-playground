@@ -1,0 +1,4 @@
+:host { display: block; }
+.wrap { display: flex; gap: 8px; align-items: center; }
+input[type="search"] { flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border, #e6e8eb); font: inherit; background: #fff; }
+.count { color: var(--muted, #687076); font-size: 13px; }
