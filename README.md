@@ -10,6 +10,7 @@ Folder structure:
 ## Examples
 
 ### components/example-01 — Mercedes Oldtimers
+
 - Goal: small, interactive app using pure Web Components. No build tools.
 - Structure:
   - Page: `components/example-01/index.html`, `styles.css`
