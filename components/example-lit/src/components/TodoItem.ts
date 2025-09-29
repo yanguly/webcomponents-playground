@@ -1,6 +1,5 @@
-// src/components/TodoItem.ts
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
+import { LitElement, html, css } from "lit";
+import { property } from "lit/decorators.js";
 
 export class TodoItem extends LitElement {
   static styles = css`
@@ -17,15 +16,15 @@ export class TodoItem extends LitElement {
     }
   `;
 
-  @property({ type: String }) text = '';
+  @property({ type: String }) text = "";
   @property({ type: Boolean }) done = false;
 
   render() {
     return html`
       <div
-        class="item ${this.done ? 'done' : ''}"
+        class="item ${this.done ? "done" : ""}"
         role="checkbox"
-        aria-checked=${this.done ? 'true' : 'false'}
+        aria-checked=${this.done ? "true" : "false"}
         tabindex="0"
         @click=${this.#onActivate}
         @keydown=${this.#onKeyDown}
@@ -36,7 +35,9 @@ export class TodoItem extends LitElement {
   }
 
   #emitToggle() {
-    this.dispatchEvent(new CustomEvent('toggle', { bubbles: true, composed: true }));
+    this.dispatchEvent(
+      new CustomEvent("toggle", { bubbles: true, composed: true })
+    );
   }
 
   #onActivate = () => {
@@ -44,11 +45,11 @@ export class TodoItem extends LitElement {
   };
 
   #onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === ' ' || e.key === 'Enter') {
+    if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
       this.#emitToggle();
     }
   };
 }
 
-customElements.define('todo-item', TodoItem);
+customElements.define("todo-item", TodoItem);

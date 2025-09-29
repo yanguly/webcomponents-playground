@@ -1,8 +1,9 @@
-// src/components/TodoList.ts
-import { LitElement, html, css } from 'lit';
-import { state } from 'lit/decorators.js';
-import { repeat } from 'lit/directives/repeat.js';
-import './TodoItem';
+import { LitElement, html, css } from "lit";
+import { state } from "lit/decorators.js";
+import { repeat } from "lit/directives/repeat.js";
+import "./TodoItem";
+import "./TodoFilter";
+import { formControlStyles } from "./styles/formControls";
 
 interface Todo {
   id: number;
@@ -11,42 +12,36 @@ interface Todo {
 }
 
 export class TodoList extends LitElement {
-  static styles = css`
-    .controls {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    .controls input[type="text"] {
-      flex: 1;
-      padding: 0.5rem 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font: inherit;
-    }
-    .controls button {
-      padding: 0.5rem 0.75rem;
-      border: 1px solid #ccc;
-      background: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-      font: inherit;
-    }
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-  `;
-
-  @state() private todos: Todo[] = [
-    { id: 1, text: 'Learn Lit', done: false },
-    { id: 2, text: 'Build component', done: false },
-    { id: 3, text: 'Profit!', done: true },
+  static styles = [
+    formControlStyles,
+    css`
+      .controls {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .controls .text-field {
+        flex: 1;
+      }
+      .controls .button {
+        background: var(--todo-button-background, #fff);
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    `,
   ];
 
-  @state() private newText: string = '';
-  @state() private query: string = '';
+  @state() private todos: Todo[] = [
+    { id: 1, text: "Learn Lit", done: false },
+    { id: 2, text: "Build component", done: false },
+    { id: 3, text: "Profit!", done: true },
+  ];
+
+  @state() private newText: string = "";
+  @state() private query: string = "";
   #nextId: number = 4;
 
   render() {
@@ -54,21 +49,22 @@ export class TodoList extends LitElement {
     return html`
       <form class="controls" @submit=${this.#onSubmit}>
         <input
+          class="text-field"
           type="text"
           placeholder="Add a todo…"
           .value=${this.newText}
           @input=${this.#onNewInput}
           aria-label="New todo"
         />
-        <button type="submit">Add</button>
-        <input
-          type="text"
-          placeholder="Filter…"
-          .value=${this.query}
-          @input=${this.#onFilterInput}
-          aria-label="Filter todos"
-        />
+        <button class="button" type="submit">Add</button>
       </form>
+
+      <todo-filter
+        .value=${this.query}
+        placeholder="Filter…"
+        label="Filter todos"
+        @filter-change=${this.#onFilterChange}
+      ></todo-filter>
 
       <div class="list">
         ${repeat(
@@ -80,7 +76,7 @@ export class TodoList extends LitElement {
               .done=${todo.done}
               @toggle=${() => this.#toggle(todo.id)}
             ></todo-item>
-          `,
+          `
         )}
       </div>
     `;
@@ -88,7 +84,9 @@ export class TodoList extends LitElement {
 
   // Toggle a todo by id with an immutable update
   #toggle(id: number) {
-    this.todos = this.todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+    this.todos = this.todos.map((t) =>
+      t.id === id ? { ...t, done: !t.done } : t
+    );
   }
 
   #onNewInput = (e: Event) => {
@@ -96,9 +94,8 @@ export class TodoList extends LitElement {
     this.newText = target.value;
   };
 
-  #onFilterInput = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    this.query = target.value;
+  #onFilterChange = (e: CustomEvent<{ value: string }>) => {
+    this.query = e.detail?.value ?? "";
   };
 
   #onSubmit = (e: Event) => {
@@ -107,7 +104,7 @@ export class TodoList extends LitElement {
     if (!text) return;
     const todo: Todo = { id: this.#nextId++, text, done: false };
     this.todos = [todo, ...this.todos];
-    this.newText = '';
+    this.newText = "";
   };
 
   #filteredTodos(): Todo[] {
@@ -117,4 +114,4 @@ export class TodoList extends LitElement {
   }
 }
 
-customElements.define('todo-list', TodoList);
+customElements.define("todo-list", TodoList);

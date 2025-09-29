@@ -42,7 +42,7 @@
 
 const OLDTIMER_APP_CSS = new URL(
   "./oldtimer-app.css",
-  (document.currentScript && document.currentScript.src) || location.href,
+  (document.currentScript && document.currentScript.src) || location.href
 ).href;
 
 class OldtimerApp extends HTMLElement {

@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import './components/TodoList';
+import { LitElement, html, css } from "lit";
+import "./components/TodoList";
 
 export class AppRoot extends LitElement {
   static styles = css`
@@ -18,4 +18,4 @@ export class AppRoot extends LitElement {
   }
 }
 
-customElements.define('app-root', AppRoot);
+customElements.define("app-root", AppRoot);
