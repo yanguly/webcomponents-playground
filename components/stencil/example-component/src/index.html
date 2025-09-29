@@ -1,11 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
 
     <script type="module" src="/build/example-component.esm.js"></script>
@@ -13,7 +10,12 @@
 
     <style>
       body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
         margin: 0;
         padding: 2rem;
         color: #1f2933;
@@ -63,20 +65,12 @@
 
       <section>
         <h2>&lt;my-component&gt;</h2>
-        <my-component
-          first="Stencil"
-          middle="'Don't call me a framework'"
-          last="JS"
-        ></my-component>
+        <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
       </section>
 
       <section>
         <h2>&lt;counter-button&gt;</h2>
-        <counter-button
-          id="demo-counter"
-          initial="3"
-          description="Tap to increment and watch the log update"
-        ></counter-button>
+        <counter-button id="demo-counter" initial="3" description="Tap to increment and watch the log update"></counter-button>
         <div id="counter-log">Current value: 3</div>
       </section>
     </main>
@@ -85,7 +79,7 @@
       const counter = document.getElementById('demo-counter');
       const logEl = document.getElementById('counter-log');
 
-      counter?.addEventListener('countChange', (event) => {
+      counter?.addEventListener('countChange', event => {
         const value = event.detail;
         logEl.textContent = `Current value: ${value}`;
       });

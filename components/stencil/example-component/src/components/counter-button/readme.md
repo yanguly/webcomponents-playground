@@ -1,9 +1,6 @@
 # counter-button
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Overview
 
@@ -18,14 +15,12 @@ via the `countChange` event.
 | `description` | `description` | Optional description text rendered below the button. | `string` | `undefined` |
 | `initial`     | `initial`     | Initial value used when the component connects.      | `number` | `0`         |
 
-
 ## Events
 
 | Event         | Description                             | Type                  |
 | ------------- | --------------------------------------- | --------------------- |
 | `countChange` | Emitted every time the counter changes. | `CustomEvent<number>` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
