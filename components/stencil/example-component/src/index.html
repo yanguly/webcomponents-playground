@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/example-component.esm.js"></script>
+    <script nomodule src="/build/example-component.js"></script>
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 2rem;
+        color: #1f2933;
+        background: #f5f7fa;
+      }
+
+      main {
+        display: grid;
+        gap: 2rem;
+        max-width: 48rem;
+      }
+
+      section {
+        background: #ffffff;
+        border-radius: 1rem;
+        border: 1px solid #e0e0e0;
+        padding: 1.5rem;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 1rem;
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        margin: 0 0 1rem;
+        font-size: 1.25rem;
+      }
+
+      #counter-log {
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #334155;
+        background: #f1f5f9;
+        border-radius: 0.75rem;
+        padding: 0.75rem 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Stencil Component Library</h1>
+        <p>Quick showcase of the generated components in this workspace.</p>
+      </header>
+
+      <section>
+        <h2>&lt;my-component&gt;</h2>
+        <my-component
+          first="Stencil"
+          middle="'Don't call me a framework'"
+          last="JS"
+        ></my-component>
+      </section>
+
+      <section>
+        <h2>&lt;counter-button&gt;</h2>
+        <counter-button
+          id="demo-counter"
+          initial="3"
+          description="Tap to increment and watch the log update"
+        ></counter-button>
+        <div id="counter-log">Current value: 3</div>
+      </section>
+    </main>
+
+    <script>
+      const counter = document.getElementById('demo-counter');
+      const logEl = document.getElementById('counter-log');
+
+      counter?.addEventListener('countChange', (event) => {
+        const value = event.detail;
+        logEl.textContent = `Current value: ${value}`;
+      });
+    </script>
+  </body>
+</html>
