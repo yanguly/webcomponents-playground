@@ -1,11 +1,5 @@
 :host {
   display: inline-block;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    sans-serif;
 }
 
 button {
