@@ -27,6 +27,12 @@ const routes: Route<RouteResult>[] = [
     }),
   },
   {
+    path: '/stencil',
+    action: () => ({
+      render: () => h('app-stencil-info', null),
+    }),
+  },
+  {
     path: '/profile/:name',
     action: ({ params }) => ({
       render: () => h('app-profile', { name: params.name }),

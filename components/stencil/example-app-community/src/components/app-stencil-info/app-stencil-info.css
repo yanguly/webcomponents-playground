@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+  color: var(--app-text-color, #1a1a1a);
+}
+
+.app-stencil-info {
+  display: grid;
+  gap: 1rem;
+  max-width: 42rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+p {
+  margin: 0;
+  line-height: 1.6;
+}

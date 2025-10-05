@@ -32,6 +32,10 @@ export class AppRoot {
       <div>
         <header>
           <h1 onClick={() => Router.push('/')}>Stencil App Starter</h1>
+          <nav>
+            <button onClick={() => Router.push('/about')}>About</button>
+            <button onClick={() => Router.push('/stencil')}>Stencil Info</button>
+          </nav>
         </header>
 
         <main>{content}</main>
