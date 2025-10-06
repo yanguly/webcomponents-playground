@@ -1,87 +1,46 @@
-# Welcome to React Router!
+# React Router Web Components Demo
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This React Router app shows how to blend framework-agnostic Web Components with a modern React UI. It includes two themed pages:
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+- **Web Components** – renders a `wc-greeting-card` element to demonstrate a simple custom element inside JSX.
+- **React Custom Elements** – walks through two richer examples (`react-badge-pill` and `react-callout-card`) including dark-mode styling, slot usage, and SSR guards.
 
-## Features
+## Quick Start
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+Install dependencies and launch the dev server:
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Then visit `http://localhost:5173` and use the welcome page links to explore both demos.
 
-## Building for Production
+## Scripts
 
-Create a production build:
+```bash
+npm run dev       # Vite-powered dev server with HMR
+npm run build     # React Router build output (client + server bundles)
+npm run start     # Serve the built app with @react-router/serve
+npm run typecheck # Generate route types and run TypeScript
+```
+
+## Key Concepts
+
+- **Registration helpers** live under `app/web-components/` (`ensureGreetingElement`, `ensureReactCustomElements`). They guard against duplicate definitions and skip DOM work during SSR.
+- **TypeScript support** is provided via `app/types/custom-elements.d.ts`, which augments React’s JSX typing so custom tags can be used without `TS2339` errors.
+- **Dark theme aware styles** are embedded directly in each Shadow DOM template using `prefers-color-scheme` media queries.
+- **SSR safety**: templates and constructors check for `document`/`HTMLElement` before accessing browser-only APIs, preventing `ReferenceError` when the server bundle imports the modules.
+
+## Production Build & Deploy
 
 ```bash
 npm run build
+npm run start  # starts the server on port 3000 by default
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+The build command emits `build/client` (static assets) and `build/server` (Node entry). Deploy both directories plus `package.json` to your host of choice, or containerize using the provided `Dockerfile`.
 
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ on top of React Router.

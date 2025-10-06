@@ -39,3 +39,18 @@ See more details in `components/example-01/README.md`.
   - `npm run dev`
 
 See more details in `components/example-lit/README.md`.
+
+### components/react/my-react-router-app — React Router + Custom Elements
+
+- Goal: demonstrate mixing browser-native Web Components with a React Router application.
+- Key routes:
+  - `/web-components` renders a greeting card custom element.
+  - `/react-custom-elements` showcases badge and callout elements with SSR-safe registration.
+- Highlights:
+  - Shadow DOM templates with light/dark theming.
+  - TypeScript typing for custom tags via `app/types/custom-elements.d.ts`.
+  - Guards around `document`/`HTMLElement` to keep the server build happy.
+- How to run:
+  - `cd components/react/my-react-router-app`
+  - `npm install`
+  - `npm run dev`
