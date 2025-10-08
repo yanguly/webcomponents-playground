@@ -46,7 +46,7 @@ Structural helpers worth exploring:
 
 ## Routing
 
-- `src/app-shell.ts` hosts `<fast-router>` and renders the primary navigation with active-pill styling.
+- `src/app-shell.ts` hosts `<fast-router>` and renders the primary navigation inside a slim frosted bar that highlights the active route.
 - `src/router/app-router-configuration.ts` maps the routes:
   - `/home` → `demo-home-page`
   - `/showcase` → `demo-showcase-page`
@@ -69,5 +69,5 @@ into the showcase and FAST documentation.
   expect the child to treat them as real booleans/numbers.
 - When you emit custom events in FAST, include `{ bubbles: true, composed: true }` if you want the
   parent component (or outside DOM) to hear them through shadow boundaries.
-- The styling in `src/style.css` focuses on centering the card; tweak it to integrate the demo into
-  another layout.
+- The refreshed styling in `src/style.css` pairs the frosted navigation shell with a centered app
+  surface and polished home hero; use it as a starting point or adjust it to fit another layout.
