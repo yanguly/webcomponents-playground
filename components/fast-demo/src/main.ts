@@ -1,27 +1,10 @@
 import "./style.css";
-import { setupCounter } from "./counter.ts";
-import "./hello-card";
+import "./app-shell";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <main class="page">
-    <hello-card
-      title="FAST Playground"
-      description="Experiment with a composed web component that nests other FAST elements."
-      cta="Send hello"
-    >
-      <p class="hint">
-        <strong>Tip:</strong> Use the toggle and counter to see how child components bubble events back up.
-      </p>
-    </hello-card>
+const app = document.querySelector<HTMLDivElement>("#app");
 
-    <p class="footnote">
-      The classic counter demo is still available below if you want to compare implementations.
-    </p>
+if (!app) {
+  throw new Error("#app element not found");
+}
 
-    <div class="actions">
-      <button id="counter" type="button">count is 0</button>
-    </div>
-  </main>
-`;
-
-setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
+app.innerHTML = "<app-shell></app-shell>";

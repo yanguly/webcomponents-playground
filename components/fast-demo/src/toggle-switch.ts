@@ -6,6 +6,7 @@ import {
   customElement,
 } from "@microsoft/fast-element";
 
+// Template binds the native checkbox property so visual state mirrors the FAST boolean attr.
 const template = html<ToggleSwitch>`
   <label>
     <input
@@ -72,6 +73,7 @@ export class ToggleSwitch extends FASTElement {
     const checked = (event.target as HTMLInputElement).checked;
     this.on = checked;
     console.info("toggle-switch: change", { on: checked });
+    // Broadcast across shadow boundaries for hosts listening to toggle-change.
     this.$emit(
       "toggle-change",
       { on: checked },

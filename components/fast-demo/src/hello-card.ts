@@ -109,6 +109,11 @@ const styles = css`
     color: rgba(15, 23, 42, 0.72);
   }
 
+  .hint {
+    margin: 0;
+    color: rgba(15, 23, 42, 0.7);
+  }
+
   .preview {
     display: grid;
     gap: 1rem;
@@ -192,6 +197,7 @@ export class HelloCard extends FASTElement {
   @observable toggled = false;
 
   handleClick() {
+    // Emit a custom "hello-click" once the CTA increments the local counter.
     this.clickCount += 1;
     console.info("hello-card: cta click", { clicks: this.clickCount });
     this.$emit("hello-click", { at: Date.now(), clicks: this.clickCount });
@@ -199,6 +205,7 @@ export class HelloCard extends FASTElement {
 
   handleCountChange(event: CustomEvent<CountChangeDetail>) {
     if (typeof event.detail?.count === "number") {
+      // Sync the badge's counter back into the host component state.
       this.clickCount = event.detail.count;
       console.info("hello-card: count-change", { count: this.clickCount });
     }
@@ -206,6 +213,7 @@ export class HelloCard extends FASTElement {
 
   handleToggleChange(event: CustomEvent<ToggleChangeDetail>) {
     if (typeof event.detail?.on === "boolean") {
+      // Mirror the toggle child component so templates react to the boolean.
       this.toggled = event.detail.on;
       console.info("hello-card: toggle-change", { toggled: this.toggled });
     }

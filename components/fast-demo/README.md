@@ -10,8 +10,9 @@ to demonstrate data binding, custom events, and property/attribute syncing.
 - Start Vite dev server: `npm run dev`
 - Build for production: `npm run build`
 
-The showcase card renders at the root page. You can edit the elements in `src/` and Vite will
-live reload the browser.
+The app now boots into a home page with navigation powered by the official
+`@microsoft/fast-router`. Use the top links to jump between the welcome screen and the interactive
+showcase while Vite live reloads changes from `src/`.
 
 ## Custom Elements
 
@@ -43,12 +44,24 @@ Structural helpers worth exploring:
 - `repeat(items, template)` &mdash; loop over arrays.
 - `slotted(slotName, template)` &mdash; observe slotted content.
 
+## Routing
+
+- `src/app-shell.ts` hosts `<fast-router>` and renders the primary navigation with active-pill styling.
+- `src/router/app-router-configuration.ts` maps the routes:
+  - `/home` → `demo-home-page`
+  - `/showcase` → `demo-showcase-page`
+  - fallback → `demo-not-found`
+- `NavigationHandler` keeps the active link in sync as the router pushes history entries.
+
 ## Interaction Flow
 
 `hello-card` keeps local state (`clickCount` and `toggled`) using FAST `@observable` properties. It
 passes the current values down to the child components using property bindings (`:count`, `:on`)
 and listens for the bubbled custom events to keep itself in sync. The CTA button also increments
-the counter and fires `hello-click`, demonstrating a host element emitting its own events.
+the counter and fires `hello-click`, demonstrating a host element emitting its own events. On the
+showcase page, the auxiliary counter button is powered by component state rather than DOM
+mutations to highlight FAST’s reactive update loop, while the redesigned home hero links straight
+into the showcase and FAST documentation.
 
 ## Tips
 

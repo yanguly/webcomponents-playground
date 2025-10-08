@@ -6,6 +6,7 @@ import {
   customElement,
 } from "@microsoft/fast-element";
 
+// Converter keeps the public attribute API string-based while exposing numbers to the component.
 const numberConverter = {
   fromView(value: string | null): number {
     return value === null ? 0 : Number(value);
@@ -60,6 +61,7 @@ export class CounterBadge extends FASTElement {
     const nextCount = base + 1;
     this.count = nextCount;
     console.info("counter-badge: increment", { nextCount, label: this.label });
+    // Bubble an event so host components can stay in sync with the badge.
     this.$emit(
       "count-change",
       { count: nextCount },
