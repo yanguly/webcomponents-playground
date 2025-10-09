@@ -1,56 +1,48 @@
 # webcomponents-playground
 
-Just a playground for pure web components and web components libraries
+A playground for experimenting with native Web Components and frameworks that can generate or consume them. Each example lives in `components/` with its own tooling and README.
 
-Folder structure:
+## Folder structure
 
-- `components/` — each component in its own folder.
-- `.gitignore` — ignores node_modules, build output, editor files, etc.
+- `components/` – all sample projects (Angular workspace, Lit app, pure Web Components, React integration, etc.).
+- `.gitignore` – excludes `node_modules`, build outputs, editor configs, etc.
 
-## Examples
+## Highlights
 
 ### components/example-01 — Mercedes Oldtimers
+- Pure Web Components with zero build tooling.
+- Open `components/example-01/index.html` directly in a browser.
+- Components live under `src/components/*` with matching CSS files.
 
-- Goal: small, interactive app using pure Web Components. No build tools.
-- Structure:
-  - Page: `components/example-01/index.html`, `styles.css`
-  - Components live under `components/example-01/src/components/<name>/`
-    - Each has `*.js` + matching `*.css`
-- How to run: open `components/example-01/index.html` in a browser.
-- Notes:
-  - Classic `<script>` tags keep it working over `file://`.
-  - Components compute CSS URLs relative to their own files, so styles load correctly without a server.
-
-See more details in `components/example-01/README.md`.
-
-### components/example-lit — Lit + Vite + TS
-- Goal: demonstrate Web Components built with Lit and Vite dev server.
-- Structure:
-  - Page: `components/example-lit/index.html`
-  - Source: `components/example-lit/src/*` (TypeScript, ESM)
-  - Components: `AppRoot`, `TodoList`, `TodoItem`
-- Features:
-  - Reactive state (add todos, toggle done, live filter)
-  - Keyboard accessible items (Enter/Space) with proper ARIA
-  - Efficient keyed rendering via Lit’s `repeat` directive
-- How to run:
-  - `cd components/example-lit`
-  - `npm i`
-  - `npm run dev`
-
-See more details in `components/example-lit/README.md`.
+### components/example-lit — Lit + Vite + TypeScript
+- Lit-based todo playground using Vite.
+- `npm install && npm run dev` inside `components/example-lit`.
+- Demonstrates reactive state, accessible interactions, and efficient keyed rendering.
 
 ### components/react/my-react-router-app — React Router + Custom Elements
+- Shows how to mix custom elements inside a React Router app.
+- Includes SSR-safe registration and TypeScript typings for custom tags.
+- Run with `npm install && npm run dev` inside the project folder.
 
-- Goal: demonstrate mixing browser-native Web Components with a React Router application.
-- Key routes:
-  - `/web-components` renders a greeting card custom element.
-  - `/react-custom-elements` showcases badge and callout elements with SSR-safe registration.
-- Highlights:
-  - Shadow DOM templates with light/dark theming.
-  - TypeScript typing for custom tags via `app/types/custom-elements.d.ts`.
-  - Guards around `document`/`HTMLElement` to keep the server build happy.
-- How to run:
-  - `cd components/react/my-react-router-app`
-  - `npm install`
-  - `npm run dev`
+### components/stencil/example-app-community
+- Stencil-generated component showcase mirroring the official community starter.
+- Explore additional Stencil examples under `components/stencil/`.
+
+### components/kxl-wc — Angular workspace + Angular Elements
+- Angular workspace with a standalone component library (`ui-widgets`) and demo app.
+- Widgets:
+  - `kxl-counter`: ControlValueAccessor with signal-based state, emits `valueChange`.
+  - `kxl-metric-card`: Metric summary card with trend indicator and annotation.
+- `npm run dev` (from `components/kxl-wc`) serves the zoneless Angular playground with both widgets rendered in cards.
+- `npm run build:elements` produces `components/kxl-wc/dist/elements/browser/main.js`, registering both `kxl-counter` and `kxl-metric-card` as custom elements.
+
+#### Preact companion (components/preact-demo)
+- Demonstrates consuming the Angular Elements bundle inside a Preact app.
+- Workflow:
+  1. Build elements: `cd components/kxl-wc && npm run build:elements`.
+  2. Install/run Preact app: `cd ../preact-demo && npm install && npm run dev` (served on `http://localhost:4300`).
+- The page loads `kxl-counter` and `kxl-metric-card`, displays a status banner if the bundle isn’t available, and uses a light UI theme.
+
+## Getting started
+
+Clone the repo, then work inside any of the `components/*` directories according to their individual instructions. Each example is intentionally standalone so you can explore different ways to author or consume Web Components.
