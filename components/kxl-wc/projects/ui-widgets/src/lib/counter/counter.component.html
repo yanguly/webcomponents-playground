@@ -1,0 +1,21 @@
+<div class="counter" [class.counter--disabled]="disabled">
+  <button
+    type="button"
+    class="counter__button"
+    (click)="dec()"
+    [disabled]="disabled"
+    aria-label="Decrease value"
+  >
+    -
+  </button>
+  <span class="counter__value" aria-live="polite">{{ value() }}</span>
+  <button
+    type="button"
+    class="counter__button"
+    (click)="inc()"
+    [disabled]="disabled"
+    aria-label="Increase value"
+  >
+    +
+  </button>
+</div>

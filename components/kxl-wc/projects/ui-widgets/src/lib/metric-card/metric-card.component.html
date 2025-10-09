@@ -1,0 +1,19 @@
+<article
+  class="metric-card"
+  [class.metric-card--positive]="trend === 'up'"
+  [class.metric-card--negative]="trend === 'down'"
+>
+  <header class="metric-card__header">
+    <span class="metric-card__label">{{ label }}</span>
+    <span class="metric-card__trend" [attr.aria-label]="trendAriaLabel">
+      <span class="metric-card__trend-icon" aria-hidden="true">{{ trendIcon }}</span>
+      <span class="metric-card__trend-value">{{ changeLabel }}</span>
+    </span>
+  </header>
+  <p class="metric-card__value">{{ value }}</p>
+  @if (annotation) {
+    <p class="metric-card__annotation">{{ annotation }}</p>
+  } @else {
+    <p class="metric-card__annotation">Change calculated against previous period.</p>
+  }
+</article>

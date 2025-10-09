@@ -1,0 +1,70 @@
+<main class="page">
+  <section class="hero">
+    <p class="eyebrow">kxl-wc workspace</p>
+    <h1>{{ title }}</h1>
+    <p class="lead">{{ subtitle }}</p>
+  </section>
+
+  <section class="grid">
+    <article class="card counter-card">
+      <header class="card__header">
+        <h2>Live Counter Playground</h2>
+        <p>Drive the value with the shared library component and observe reactive updates.</p>
+      </header>
+      <div class="card__body">
+        <kxl-counter
+          class="counter-element"
+          [step]="5"
+          aria-label="Counter with step of five"
+          (valueChange)="v.set($event)"
+        ></kxl-counter>
+        <p class="current-value" aria-live="polite">
+          Current value: <span>{{ v() }}</span>
+        </p>
+      </div>
+    </article>
+
+    <article class="card info-card">
+      <header class="card__header">
+        <h2>Workspace Capabilities</h2>
+      </header>
+      <div class="card__body">
+        <ul class="feature-list">
+          <li>
+            <strong>Library ready:</strong> Components ship from <code>ui-widgets</code> with
+            signal-based APIs.
+          </li>
+          <li>
+            <strong>Zoneless runtime:</strong> Angular 20 running without Zones for modern
+            performance.
+          </li>
+          <li>
+            <strong>Elements build:</strong> `kxl-counter` is available as a custom element for any
+            framework.
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card library-card">
+      <header class="card__header">
+        <h2>Metric Cards</h2>
+        <p>Styled summaries sourced from the shared UI widgets library.</p>
+      </header>
+      <div class="card__body widget-stack">
+        <kxl-metric-card
+          label="Daily Active Users"
+          value="28,410"
+          [change]="12.6"
+          annotation="Compared to the previous 7 days"
+        ></kxl-metric-card>
+        <kxl-metric-card
+          label="Error Budget"
+          value="99.2%"
+          [change]="-0.8"
+          annotation="Availability across the current sprint"
+        ></kxl-metric-card>
+      </div>
+    </article>
+  </section>
+</main>
