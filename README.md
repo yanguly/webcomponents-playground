@@ -43,6 +43,11 @@ A playground for experimenting with native Web Components and frameworks that ca
   2. Install/run Preact app: `cd ../preact-demo && npm install && npm run dev` (served on `http://localhost:4300`).
 - The page loads `kxl-counter` and `kxl-metric-card`, displays a status banner if the bundle isn’t available, and uses a light UI theme.
 
+### showcase — Next.js overview
+- Located in `showcase/`; visual index of every example in this repo.
+- Install dependencies once: `cd showcase && npm install`.
+- Start the overview site with `npm run dev`, then browse `http://localhost:3000` to explore component interactions, code snippets, and links back to each project. Jump to `/examples` to see the real components mounted in-place (vanilla Oldtimer app, Lit todo list, FAST composite card, Stencil counter-button, React-registered custom elements, and Angular Elements feeding a Preact embed).
+
 ## Getting started
 
 Clone the repo, then work inside any of the `components/*` directories according to their individual instructions. Each example is intentionally standalone so you can explore different ways to author or consume Web Components.
