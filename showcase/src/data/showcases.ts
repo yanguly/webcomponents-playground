@@ -446,17 +446,16 @@ private handleClick() {
   },
   {
     id: "angular-elements",
-    title: "Angular Elements + Preact Bridge",
-    tagline:
-      "Angular widgets compiled to custom elements and consumed from a Preact shell.",
+    title: "Angular Elements Workspace",
+    tagline: "Angular widgets compiled to custom elements ready for any host.",
     description:
-      "The Angular workspace exposes `kxl-counter` and `kxl-metric-card` as standalone elements. A companion Preact app lazy-loads the bundle and uses JSX typings to interact with the custom tags safely.",
+      "The Angular workspace exposes `kxl-counter` and `kxl-metric-card` as standalone elements. Build once and drop them into runtime environments without shipping the Angular runtime.",
     repoPath: "components/kxl-wc",
-    stack: ["Angular 20", "Angular Elements", "Preact", "Vite"],
+    stack: ["Angular 20", "Angular Elements"],
     highlights: [
       "Angular signals power the widgets while `ControlValueAccessor` keeps them form-friendly.",
       "The elements build outputs a `dist/elements` bundle ready for any host framework.",
-      "JSX type augmentation prevents TypeScript errors when using the elements in Preact.",
+      "Type declarations document the custom elements for any consuming TypeScript project.",
     ],
     components: [
       {
@@ -471,12 +470,6 @@ private handleClick() {
           "Metric display card reflecting positive/negative trends with accessible labelling.",
         file: "components/kxl-wc/projects/ui-widgets/src/lib/metric-card/metric-card.component.ts",
       },
-      {
-        name: "Preact consumer",
-        description:
-          "Loads the Angular bundle, registers custom elements, and renders them inside a Preact layout.",
-        file: "components/preact-demo/src/app.tsx",
-      },
     ],
     interactions: [
       {
@@ -485,51 +478,38 @@ private handleClick() {
           "Component state flows through `@Input()`s and `@Output()`s which Angular Elements bridges to attributes and custom events.",
       },
       {
-        title: "Preact → Angular elements",
+        title: "Host frameworks → Custom elements",
         detail:
-          "JSX props map to element properties (`value`, `step`) and event handlers use `onvaluechange` to listen for updates.",
+          "Consumers treat the elements as standard DOM nodes—set properties or attributes and listen for custom events.",
       },
       {
         title: "Shared typings",
         detail:
-          "`custom-elements.d.ts` augments JSX to keep TypeScript satisfied when using the Angular-provided custom elements.",
+          "`custom-elements.d.ts` documents the tag names and event signatures for TypeScript-aware hosts.",
       },
     ],
     codeSnippets: [
       {
-        title: "Registering Angular elements bundle",
-        language: "ts",
-        snippet: `import(/* @vite-ignore */ ELEMENTS_ENTRY)
-  .then(() => setElementsState("ready"))
-  .catch(() => setElementsState("missing"));`,
+        title: "Loading the Angular elements bundle",
+        language: "js",
+        snippet: `import("/assets/angular-elements/browser/main.js")
+  .then(() => console.log("Angular elements ready"))
+  .catch(() => console.error("Angular elements bundle missing"));`,
       },
       {
-        title: "Listening for valueChange inside Preact",
-        language: "ts",
-        snippet: `useEffect(() => {
-  const el = counterRef.current;
-  if (!el) return;
-
-  const handleValueChange = (event: Event) => {
-    const detail = (event as CustomEvent<number>).detail ?? 0;
-    setValue(detail);
-  };
-
-  el.addEventListener("valueChange", handleValueChange as EventListener);
-  return () => {
-    el.removeEventListener("valueChange", handleValueChange as EventListener);
-  };
-}, []);`,
+        title: "Listening for valueChange events",
+        language: "js",
+        snippet: `const counter = document.querySelector("kxl-counter");
+counter?.addEventListener("valueChange", (event) => {
+  const nextValue = event.detail ?? 0;
+  console.log("Angular counter emitted:", nextValue);
+});`,
       },
     ],
     resources: [
       {
         label: "Angular workspace README",
         path: "components/kxl-wc/README.md",
-      },
-      {
-        label: "Preact demo README",
-        path: "components/preact-demo/README.md",
       },
     ],
   },

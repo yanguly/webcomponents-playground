@@ -19,6 +19,12 @@ A playground for experimenting with native Web Components and frameworks that ca
 - `npm install && npm run dev` inside `components/example-lit`.
 - Demonstrates reactive state, accessible interactions, and efficient keyed rendering.
 
+### components/svelte-wc — Svelte custom elements
+- Svelte 5 project compiled with `customElement: true` to ship `<sv-counter>` and `<sv-badge>`.
+- `npm install && npm run dev` inside `components/svelte-wc` to play with the elements in a Vite playground.
+- `npm run build` produces `dist/svelte-wc.js`, registering both elements when the script loads.
+- Badge reflects its normalised `kind`/`pill` state back to the host for predictable `:host([kind=...])` styling; the counter emits `value-change` on every interaction.
+
 ### components/react/my-react-router-app — React Router + Custom Elements
 - Shows how to mix custom elements inside a React Router app.
 - Includes SSR-safe registration and TypeScript typings for custom tags.

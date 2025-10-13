@@ -13,7 +13,6 @@ const OLD_TIMER_SCRIPTS = [
 const STENCIL_BUNDLE =
   "/assets/stencil-example-component/build/example-component.esm.js";
 const ANGULAR_BUNDLE = "/assets/angular-elements/browser/main.js";
-const PREACT_DEMO_HTML = "/assets/preact-demo/index.html";
 
 type AngularStatus = "loading" | "ready" | "missing";
 
@@ -41,7 +40,6 @@ export default function ExamplesPage() {
   const [fastReady, setFastReady] = useState(false);
   const [stencilReady, setStencilReady] = useState(false);
   const [angularStatus, setAngularStatus] = useState<AngularStatus>("loading");
-  const [iframeError, setIframeError] = useState(false);
   const [reactReady, setReactReady] = useState(false);
 
   const [greetingClicks, setGreetingClicks] = useState(0);
@@ -468,14 +466,13 @@ export default function ExamplesPage() {
       <section className="space-y-4 rounded-3xl border border-emerald-500/30 bg-emerald-500/10 p-6 shadow-lg shadow-emerald-500/20">
         <header className="space-y-1">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-100/80">
-            components/kxl-wc + components/preact-demo
+            components/kxl-wc
           </p>
           <h2 className="text-2xl font-semibold text-emerald-50">
-            Angular Elements embedded in Preact
+            Angular Elements in isolation
           </h2>
           <p className="text-sm text-emerald-100/80">
-            The Angular workspace registers custom elements which are consumed below
-            and inside the original Preact shell.
+            The Angular workspace registers custom elements that can be dropped into any host. Below we render them directly from the showcase app.
           </p>
         </header>
         <Script
@@ -486,63 +483,40 @@ export default function ExamplesPage() {
           onLoad={() => setAngularStatus("ready")}
           onError={() => setAngularStatus("missing")}
         />
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-          <div className="rounded-2xl border border-emerald-500/40 bg-white/95 p-6 text-slate-900 shadow-inner">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-500/80">
-              Demo
+        <div className="rounded-2xl border border-emerald-500/40 bg-white/95 p-6 text-slate-900 shadow-inner">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-500/80">
+            Demo
+          </p>
+          {angularStatus === "ready" ? (
+            <div className="space-y-4">
+              <kxl-counter
+                ref={setAngularCounterNode}
+                step="2"
+                value={angularCounter}
+              ></kxl-counter>
+              <kxl-metric-card
+                label="Conversion rate"
+                value="42%"
+                change="5.4"
+                annotation="Rolling 7-day"
+              ></kxl-metric-card>
+            </div>
+          ) : angularStatus === "missing" ? (
+            <p className="text-sm text-red-500">
+              Angular elements bundle missing. Run <code>npm run build:elements</code> inside
+              <code> components/kxl-wc</code> and reload.
             </p>
-            {angularStatus === "ready" ? (
-              <div className="space-y-4">
-                <kxl-counter
-                  ref={setAngularCounterNode}
-                  step="2"
-                  value={angularCounter}
-                ></kxl-counter>
-                <kxl-metric-card
-                  label="Conversion rate"
-                  value="42%"
-                  change="5.4"
-                  annotation="Rolling 7-day"
-                ></kxl-metric-card>
-              </div>
-            ) : angularStatus === "missing" ? (
-              <p className="text-sm text-red-500">
-                Angular elements bundle missing. Run <code>npm run build:elements</code> inside
-                <code> components/kxl-wc</code> and reload.
-              </p>
-            ) : (
-              <p className="text-sm text-slate-500">Loading Angular elements…</p>
-            )}
-            {angularStatus === "ready" && (
-              <p className="mt-4 text-sm text-slate-600">
-                Latest <code>valueChange</code> payload: <span className="font-semibold">{angularCounter}</span>
-              </p>
-            )}
-            <CodeSnippet title="Usage" language="html">
-              {`<kxl-counter step="2"></kxl-counter>`}
-            </CodeSnippet>
-          </div>
-          <div className="rounded-2xl border border-emerald-500/40 bg-white/95 p-4 text-slate-900 shadow-inner">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-500/80">
-              Preact consumer (iframe)
+          ) : (
+            <p className="text-sm text-slate-500">Loading Angular elements…</p>
+          )}
+          {angularStatus === "ready" && (
+            <p className="mt-4 text-sm text-slate-600">
+              Latest <code>valueChange</code> payload: <span className="font-semibold">{angularCounter}</span>
             </p>
-            {iframeError ? (
-              <div className="mt-3 rounded-lg border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-200">
-                <p className="font-semibold">Failed to load Preact demo.</p>
-                <p>
-                  Ensure <code>components/preact-demo</code> has been built (run
-                  <code> npm install && npm run build</code>) so <code>dist/</code> exists.
-                </p>
-              </div>
-            ) : (
-              <iframe
-                src={PREACT_DEMO_HTML}
-                title="Preact demo consuming Angular Elements"
-                className="mt-3 h-[420px] w-full rounded-xl border border-emerald-500/30 bg-white"
-                onError={() => setIframeError(true)}
-              ></iframe>
-            )}
-          </div>
+          )}
+          <CodeSnippet title="Usage" language="html">
+            {`<kxl-counter step="2"></kxl-counter>`}
+          </CodeSnippet>
         </div>
       </section>
     </div>
