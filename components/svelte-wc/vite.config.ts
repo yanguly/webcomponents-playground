@@ -13,6 +13,11 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    fs: {
+      allow: [rootDir, resolve(rootDir, "../kxl-wc")],
+    },
+  },
   build: {
     lib: {
       entry: resolve(rootDir, "src/entries/elements.ts"),

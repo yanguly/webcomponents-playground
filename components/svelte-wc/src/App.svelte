@@ -1,18 +1,57 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import './entries/elements'
+  import { onMount } from "svelte";
+  import svelteLogo from "./assets/svelte.svg";
+  import viteLogo from "/vite.svg";
+  import "./entries/elements";
 
-  let counterValue = 0
-  let lastBadgeKind = ''
+  let counterValue = 0;
+  let lastBadgeKind = "";
+  let angularElementsReady = false;
+  let angularElementsError: string | null = null;
+
+  const metricCardSamples = [
+    {
+      label: "Net revenue",
+      value: "$1.2M",
+      change: 12.4,
+      annotation: "Versus last quarter",
+    },
+    {
+      label: "Churn rate",
+      value: "3.4%",
+      change: -1.2,
+      annotation: "Month over month",
+    },
+  ];
 
   function handleCounterChange(event: CustomEvent<number>) {
-    counterValue = event.detail
+    counterValue = event.detail;
   }
 
   function handleBadgeClick(event: CustomEvent<{ kind: string }>) {
-    lastBadgeKind = event.detail.kind
+    lastBadgeKind = event.detail.kind;
   }
+
+  onMount(async () => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (customElements.get("kxl-metric-card")) {
+      angularElementsReady = true;
+      return;
+    }
+
+    try {
+      // Lazy-load the Angular Elements bundle so the custom elements self-register.
+      await import("../../kxl-wc/dist/elements/browser/main.js");
+      angularElementsReady = true;
+    } catch (error) {
+      angularElementsError =
+        error instanceof Error ? error.message : String(error);
+      console.error("Failed to load Angular Elements bundle", error);
+    }
+  });
 </script>
 
 <main>
@@ -39,24 +78,48 @@
   <section class="card">
     <h2>Badge demos</h2>
     <div class="badge-grid">
-      <sv-badge kind="neutral" on:svl-click={handleBadgeClick}>Neutral</sv-badge>
-      <sv-badge kind="success" on:svl-click={handleBadgeClick}>Success</sv-badge>
-      <sv-badge kind="danger" on:svl-click={handleBadgeClick}
-        >Danger</sv-badge
+      <sv-badge kind="neutral" on:svl-click={handleBadgeClick}>Neutral</sv-badge
       >
+      <sv-badge kind="success" on:svl-click={handleBadgeClick}>Success</sv-badge
+      >
+      <sv-badge kind="danger" on:svl-click={handleBadgeClick}>Danger</sv-badge>
     </div>
     {#if lastBadgeKind}
       <p class="badge-message">Last badge click: {lastBadgeKind}</p>
     {/if}
   </section>
 
+  <section class="card">
+    <h2>Angular metric cards</h2>
+    {#if angularElementsError}
+      <p class="error">
+        Failed to load Angular elements: {angularElementsError}
+      </p>
+    {:else if angularElementsReady}
+      <div class="metric-card-grid">
+        {#each metricCardSamples as sample (sample.label)}
+          <kxl-metric-card
+            label={sample.label}
+            value={sample.value}
+            change={sample.change}
+            annotation={sample.annotation}
+          ></kxl-metric-card>
+        {/each}
+      </div>
+    {:else}
+      <p>Loading Angular custom elements bundle...</p>
+    {/if}
+  </section>
+
   <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
+    Check out <a
+      href="https://github.com/sveltejs/kit#readme"
+      target="_blank"
+      rel="noreferrer">SvelteKit</a
+    >, the official Svelte app framework powered by Vite!
   </p>
 
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
 </main>
 
 <style>
@@ -100,12 +163,33 @@
 
   .counter-value {
     margin: 0;
-    font: 500 1rem/1.2 system-ui, sans-serif;
+    font:
+      500 1rem/1.2 system-ui,
+      sans-serif;
   }
 
   .badge-message {
     margin: 0;
     color: #94a3b8;
-    font: 0.9rem/1.2 system-ui, sans-serif;
+    font:
+      0.9rem/1.2 system-ui,
+      sans-serif;
+  }
+
+  .metric-card-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  kxl-metric-card {
+    display: block;
+  }
+
+  .error {
+    margin: 0;
+    color: #f87171;
+    font:
+      0.95rem/1.2 system-ui,
+      sans-serif;
   }
 </style>
