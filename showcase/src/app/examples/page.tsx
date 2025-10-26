@@ -174,8 +174,14 @@ export default function ExamplesPage() {
     node.addEventListener("toggle-change", handleToggle as EventListener);
 
     return () => {
-      node.removeEventListener("hello-click", handleHelloClick as EventListener);
-      node.removeEventListener("count-change", handleBadgeCount as EventListener);
+      node.removeEventListener(
+        "hello-click",
+        handleHelloClick as EventListener,
+      );
+      node.removeEventListener(
+        "count-change",
+        handleBadgeCount as EventListener,
+      );
       node.removeEventListener("toggle-change", handleToggle as EventListener);
     };
   }, [fastReady]);
@@ -193,7 +199,10 @@ export default function ExamplesPage() {
 
     node.addEventListener("countChange", handleCountChange as EventListener);
     return () => {
-      node.removeEventListener("countChange", handleCountChange as EventListener);
+      node.removeEventListener(
+        "countChange",
+        handleCountChange as EventListener,
+      );
     };
   }, [stencilReady]);
 
@@ -210,7 +219,10 @@ export default function ExamplesPage() {
 
     node.addEventListener("valueChange", handleValueChange as EventListener);
     return () => {
-      node.removeEventListener("valueChange", handleValueChange as EventListener);
+      node.removeEventListener(
+        "valueChange",
+        handleValueChange as EventListener,
+      );
     };
   }, [angularStatus]);
 
@@ -248,8 +260,8 @@ export default function ExamplesPage() {
             Mercedes Oldtimers (vanilla custom elements)
           </h2>
           <p className="text-sm text-slate-300">
-            Scripts load straight from the original folder and the component tree
-            renders alongside this page.
+            Scripts load straight from the original folder and the component
+            tree renders alongside this page.
           </p>
         </header>
         {OLD_TIMER_SCRIPTS.map((src, index) => (
@@ -303,8 +315,8 @@ export default function ExamplesPage() {
             FAST composite card
           </h2>
           <p className="text-sm text-amber-100/80">
-            The FAST Hello Card orchestrates child components and emits analytics
-            events you can see reflected in the live stats.
+            The FAST Hello Card orchestrates child components and emits
+            analytics events you can see reflected in the live stats.
           </p>
         </header>
         <div className="grid gap-4 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
@@ -335,13 +347,18 @@ export default function ExamplesPage() {
               Interaction feed
             </p>
             <p className="text-sm">
-              CTA clicks recorded: <span className="font-semibold">{fastCtaClicks}</span>
+              CTA clicks recorded:{" "}
+              <span className="font-semibold">{fastCtaClicks}</span>
             </p>
             <p className="text-sm">
-              Badge count: <span className="font-semibold">{fastBadgeCount}</span>
+              Badge count:{" "}
+              <span className="font-semibold">{fastBadgeCount}</span>
             </p>
             <p className="text-sm">
-              Toggle status: <span className="font-semibold">{fastToggleOn ? "enabled" : "disabled"}</span>
+              Toggle status:{" "}
+              <span className="font-semibold">
+                {fastToggleOn ? "enabled" : "disabled"}
+              </span>
             </p>
           </div>
         </div>
@@ -385,7 +402,8 @@ export default function ExamplesPage() {
               <p className="text-sm text-slate-500">Loading Stencil bundle…</p>
             )}
             <div className="mt-4 rounded-xl border border-fuchsia-500/40 bg-fuchsia-500/20 p-4 text-sm text-fuchsia-50">
-              Count from <code>countChange</code> events: <span className="font-semibold">{stencilCount}</span>
+              Count from <code>countChange</code> events:{" "}
+              <span className="font-semibold">{stencilCount}</span>
             </div>
             <CodeSnippet title="Usage" language="html">
               {`<counter-button initial="2"></counter-button>`}
@@ -395,9 +413,14 @@ export default function ExamplesPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-fuchsia-500/80">
               Companion element
             </p>
-            <my-component first="Stencil" middle="says" last="hello"></my-component>
+            <my-component
+              first="Stencil"
+              middle="says"
+              last="hello"
+            ></my-component>
             <p className="mt-3 text-sm text-slate-600">
-              Both elements are rendered directly from <code>components/stencil/example-component</code>.
+              Both elements are rendered directly from{" "}
+              <code>components/stencil/example-component</code>.
             </p>
             <CodeSnippet title="Usage" language="html">
               {`<my-component first="Stencil" middle="says" last="hello"></my-component>`}
@@ -434,7 +457,10 @@ export default function ExamplesPage() {
               <p className="text-sm text-slate-500">Loading custom elements…</p>
             )}
             <p className="mt-4 text-sm text-slate-500">
-              CTA clicks captured: <span className="font-semibold text-slate-800">{greetingClicks}</span>
+              CTA clicks captured:{" "}
+              <span className="font-semibold text-slate-800">
+                {greetingClicks}
+              </span>
             </p>
             <CodeSnippet title="Usage" language="html">
               {`<wc-greeting-card
@@ -449,7 +475,8 @@ export default function ExamplesPage() {
             </p>
             {reactReady ? (
               <react-callout-card heading="Slots & styling" tone="info">
-                Shadow DOM CSS and slot content come straight from the React sample’s source.
+                Shadow DOM CSS and slot content come straight from the React
+                sample’s source.
               </react-callout-card>
             ) : (
               <p className="text-sm text-slate-500">Loading custom elements…</p>
@@ -472,7 +499,8 @@ export default function ExamplesPage() {
             Angular Elements in isolation
           </h2>
           <p className="text-sm text-emerald-100/80">
-            The Angular workspace registers custom elements that can be dropped into any host. Below we render them directly from the showcase app.
+            The Angular workspace registers custom elements that can be dropped
+            into any host. Below we render them directly from the showcase app.
           </p>
         </header>
         <Script
@@ -503,7 +531,8 @@ export default function ExamplesPage() {
             </div>
           ) : angularStatus === "missing" ? (
             <p className="text-sm text-red-500">
-              Angular elements bundle missing. Run <code>npm run build:elements</code> inside
+              Angular elements bundle missing. Run{" "}
+              <code>npm run build:elements</code> inside
               <code> components/kxl-wc</code> and reload.
             </p>
           ) : (
@@ -511,7 +540,8 @@ export default function ExamplesPage() {
           )}
           {angularStatus === "ready" && (
             <p className="mt-4 text-sm text-slate-600">
-              Latest <code>valueChange</code> payload: <span className="font-semibold">{angularCounter}</span>
+              Latest <code>valueChange</code> payload:{" "}
+              <span className="font-semibold">{angularCounter}</span>
             </p>
           )}
           <CodeSnippet title="Usage" language="html">

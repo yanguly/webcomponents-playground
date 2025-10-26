@@ -147,7 +147,10 @@ export default function ShowcasePage() {
                         </h3>
                         <div className="grid gap-4 md:grid-cols-2">
                           {entry.codeSnippets.map((snippet) => (
-                            <div className="flex flex-col gap-2" key={snippet.title}>
+                            <div
+                              className="flex flex-col gap-2"
+                              key={snippet.title}
+                            >
                               <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
                                 {snippet.title}
                               </p>
@@ -234,7 +237,9 @@ export default function ShowcasePage() {
           </p>
           <p>
             Run{" "}
-            <code className="rounded bg-slate-900/70 px-2 py-1">npm run dev</code>{" "}
+            <code className="rounded bg-slate-900/70 px-2 py-1">
+              npm run dev
+            </code>{" "}
             inside <code>showcase</code> to explore locally.
           </p>
         </div>

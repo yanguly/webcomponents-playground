@@ -56,7 +56,7 @@ export class TodoFilter extends LitElement {
         detail: { value: nextValue },
         bubbles: true,
         composed: true,
-      })
+      }),
     );
   };
 }

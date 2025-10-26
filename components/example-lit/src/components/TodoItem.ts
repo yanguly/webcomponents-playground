@@ -36,7 +36,7 @@ export class TodoItem extends LitElement {
 
   #emitToggle() {
     this.dispatchEvent(
-      new CustomEvent("toggle", { bubbles: true, composed: true })
+      new CustomEvent("toggle", { bubbles: true, composed: true }),
     );
   }
 

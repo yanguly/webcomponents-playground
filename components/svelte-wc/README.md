@@ -22,6 +22,10 @@ Custom elements
 | `sv-counter` | `step` (number), `value` (number) | `value-change { detail: number }` |
 | `sv-badge` | `kind` (`neutral` \| `success` \| `danger`), `pill` | `svl-click { detail: { kind } }` |
 
+## Sharing with the rest of the playground
+
+This project lives alongside the Angular-based `components/kxl-wc` demo, which now features Material Web controls. After running `npm run build` here, the generated `dist/svelte-wc.js` can be dropped into that demo (or any other playground in this repo) to prove out mixed-framework scenarios: import the script once, and the `sv-counter` / `sv-badge` tags behave like any other third-party web component.
+
 Notes
 
 - Components use `<svelte:options customElement>` so styles rely on `:host` selectors and CSS variables; the badge reflects the normalised state back onto the host to keep the theme in sync.

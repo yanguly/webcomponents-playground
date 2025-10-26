@@ -76,7 +76,7 @@ export class TodoList extends LitElement {
               .done=${todo.done}
               @toggle=${() => this.#toggle(todo.id)}
             ></todo-item>
-          `
+          `,
         )}
       </div>
     `;
@@ -85,7 +85,7 @@ export class TodoList extends LitElement {
   // Toggle a todo by id with an immutable update
   #toggle(id: number) {
     this.todos = this.todos.map((t) =>
-      t.id === id ? { ...t, done: !t.done } : t
+      t.id === id ? { ...t, done: !t.done } : t,
     );
   }
 

@@ -38,7 +38,25 @@ Navigate to `http://localhost:4200/` to explore:
 
 - **Counter playground** – the `kxl-counter` ControlValueAccessor with signal-based state, step control, and value change events.
 - **Metric cards** – the `kxl-metric-card` component rendered twice to showcase positive and negative trends.
+- **Material Web controls** – `@material/web`’s `md-filled-text-field` and `md-menu` wired up to Angular signals, showcasing how third-party web components slot into the playground with typography styles injected in `projects/demo/src/main.ts`.
 - A quick summary of what the workspace exports and how the elements build can be consumed.
+
+### Material Web quick reference
+
+The demo now relies on Material Web for the text field and menu examples:
+
+1. `@material/web` is already installed and imported from `projects/demo/src/main.ts`. The entry file attaches the Material typography stylesheet via `document.adoptedStyleSheets` (with a `<style>` fallback) before bootstrapping Angular, so no extra setup is required.
+2. Components are used directly in `projects/demo/src/app/app.html` and work because the root component opts into `CUSTOM_ELEMENTS_SCHEMA`.
+3. Theme tokens can be updated in `projects/demo/src/styles.css`. For instance:
+
+   ```css
+   :root {
+     --md-sys-color-primary: #2563eb;
+     --md-filled-text-field-container-color: #ffffff;
+   }
+   ```
+
+4. Accessibility: the menu trigger syncs `aria-expanded`, `aria-controls`, and `aria-haspopup` while the helper text uses `aria-live="polite"` so screen readers announce the latest action.
 
 ## Library widgets
 

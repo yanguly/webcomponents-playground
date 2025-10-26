@@ -1,1 +1,1 @@
-import './AppRoot.ts';
+import "./AppRoot.ts";

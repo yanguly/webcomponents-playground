@@ -10,31 +10,37 @@ A playground for experimenting with native Web Components and frameworks that ca
 ## Highlights
 
 ### components/example-01 — Mercedes Oldtimers
+
 - Pure Web Components with zero build tooling.
 - Open `components/example-01/index.html` directly in a browser.
 - Components live under `src/components/*` with matching CSS files.
 
 ### components/example-lit — Lit + Vite + TypeScript
+
 - Lit-based todo playground using Vite.
 - `npm install && npm run dev` inside `components/example-lit`.
 - Demonstrates reactive state, accessible interactions, and efficient keyed rendering.
 
 ### components/svelte-wc — Svelte custom elements
+
 - Svelte 5 project compiled with `customElement: true` to ship `<sv-counter>` and `<sv-badge>`.
 - `npm install && npm run dev` inside `components/svelte-wc` to play with the elements in a Vite playground.
 - `npm run build` produces `dist/svelte-wc.js`, registering both elements when the script loads.
 - Badge reflects its normalised `kind`/`pill` state back to the host for predictable `:host([kind=...])` styling; the counter emits `value-change` on every interaction.
 
 ### components/react/my-react-router-app — React Router + Custom Elements
+
 - Shows how to mix custom elements inside a React Router app.
 - Includes SSR-safe registration and TypeScript typings for custom tags.
 - Run with `npm install && npm run dev` inside the project folder.
 
 ### components/stencil/example-app-community
+
 - Stencil-generated component showcase mirroring the official community starter.
 - Explore additional Stencil examples under `components/stencil/`.
 
 ### components/kxl-wc — Angular workspace + Angular Elements
+
 - Angular workspace with a standalone component library (`ui-widgets`) and demo app.
 - Widgets:
   - `kxl-counter`: ControlValueAccessor with signal-based state, emits `valueChange`.
@@ -43,6 +49,7 @@ A playground for experimenting with native Web Components and frameworks that ca
 - `npm run build:elements` produces `components/kxl-wc/dist/elements/browser/main.js`, registering both `kxl-counter` and `kxl-metric-card` as custom elements.
 
 #### Preact companion (components/preact-demo)
+
 - Demonstrates consuming the Angular Elements bundle inside a Preact app.
 - Workflow:
   1. Build elements: `cd components/kxl-wc && npm run build:elements`.
@@ -50,6 +57,7 @@ A playground for experimenting with native Web Components and frameworks that ca
 - The page loads `kxl-counter` and `kxl-metric-card`, displays a status banner if the bundle isn’t available, and uses a light UI theme.
 
 ### showcase — Next.js overview
+
 - Located in `showcase/`; visual index of every example in this repo.
 - Install dependencies once: `cd showcase && npm install`.
 - Start the overview site with `npm run dev`, then browse `http://localhost:3000` to explore component interactions, code snippets, and links back to each project. Jump to `/examples` to see the real components mounted in-place (vanilla Oldtimer app, Lit todo list, FAST composite card, Stencil counter-button, React-registered custom elements, and Angular Elements feeding a Preact embed).

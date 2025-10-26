@@ -13,10 +13,7 @@ const PREACT_DIST_ROOT = path.join(
 );
 
 const projects = new Map([
-  [
-    "example-01",
-    path.join(process.cwd(), "..", "components", "example-01"),
-  ],
+  ["example-01", path.join(process.cwd(), "..", "components", "example-01")],
   [
     "stencil-example-component",
     path.join(
@@ -30,23 +27,10 @@ const projects = new Map([
   ],
   [
     "angular-elements",
-    path.join(
-      process.cwd(),
-      "..",
-      "components",
-      "kxl-wc",
-      "dist",
-      "elements",
-    ),
+    path.join(process.cwd(), "..", "components", "kxl-wc", "dist", "elements"),
   ],
-  [
-    "kxl-wc",
-    path.join(process.cwd(), "..", "components", "kxl-wc"),
-  ],
-  [
-    "preact-demo",
-    PREACT_DIST_ROOT,
-  ],
+  ["kxl-wc", path.join(process.cwd(), "..", "components", "kxl-wc")],
+  ["preact-demo", PREACT_DIST_ROOT],
 ]);
 
 const mimeByExtension: Record<string, string> = {
@@ -120,7 +104,10 @@ export async function GET(_request: Request, context: RouteContext) {
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
         console.error("Asset read failed:", error);
-        return NextResponse.json({ error: "Asset read error" }, { status: 500 });
+        return NextResponse.json(
+          { error: "Asset read error" },
+          { status: 500 },
+        );
       }
     }
   }

@@ -66,5 +66,62 @@
         ></kxl-metric-card>
       </div>
     </article>
+
+    <article class="card material-card">
+      <header class="card__header">
+        <h2>Material Web Controls</h2>
+        <p>Menu and text field custom elements from <code>@material/web</code>.</p>
+      </header>
+      <div class="card__body material-controls">
+        <section class="material-section">
+          <h3>Filled Text Field</h3>
+          <md-filled-text-field
+            label="Favorite web component flavor"
+            supporting-text="Updates a reactive Angular signal"
+            [value]="materialFieldValue()"
+            (input)="onTextFieldInput($event)"
+          ></md-filled-text-field>
+          <p class="material-helper">
+            You typed:
+            <span>{{ materialFieldValue() || 'Nothing yet — start typing!' }}</span>
+          </p>
+        </section>
+        <section class="material-section">
+          <h3>Menu anchored to button</h3>
+          <button
+            id="material-demo-menu-button"
+            type="button"
+            class="menu-activator"
+            aria-haspopup="menu"
+            [attr.aria-expanded]="isMaterialMenuOpen()"
+            [attr.aria-controls]="'material-quick-actions-menu'"
+            (click)="openMaterialMenu()"
+          >
+            Quick actions
+          </button>
+          <md-menu
+            #materialMenu
+            id="material-quick-actions-menu"
+            anchor="material-demo-menu-button"
+            (opened)="onMenuOpened()"
+            (closed)="onMenuClosed()"
+          >
+            <md-menu-item headline="Share dashboard" (click)="onMenuAction('Share dashboard')">
+              Share Dashboard
+            </md-menu-item>
+            <md-menu-item headline="Duplicate report" (click)="onMenuAction('Duplicate report')">
+              Duplicate Report
+            </md-menu-item>
+            <md-menu-item headline="Archive experiment" (click)="onMenuAction('Archive experiment')">
+              Archive
+            </md-menu-item>
+          </md-menu>
+          <p class="material-helper" aria-live="polite">
+            Last action:
+            <span>{{ lastMenuAction() || 'Pick an action above' }}</span>
+          </p>
+        </section>
+      </div>
+    </article>
   </section>
 </main>

@@ -1,7 +1,9 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
-type CustomElement<Props = Record<string, unknown>, T = HTMLElement> =
-  DetailedHTMLProps<HTMLAttributes<T>, T> & Props;
+type CustomElement<
+  Props = Record<string, unknown>,
+  T = HTMLElement,
+> = DetailedHTMLProps<HTMLAttributes<T>, T> & Props;
 
 declare global {
   namespace React.JSX {

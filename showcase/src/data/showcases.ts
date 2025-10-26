@@ -516,7 +516,8 @@ counter?.addEventListener("valueChange", (event) => {
   {
     id: "react-router-wc",
     title: "React Router + Custom Elements",
-    tagline: "Hybrid React pages that register and consume framework-agnostic elements.",
+    tagline:
+      "Hybrid React pages that register and consume framework-agnostic elements.",
     description:
       "The React Router app registers web components on demand so they work with SSR and client navigation. Dedicated helpers guard against duplicate definitions while JSX typings keep TypeScript happy.",
     repoPath: "components/react/my-react-router-app",
